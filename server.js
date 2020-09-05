@@ -19,6 +19,18 @@ app.get('/api/v1/teas', (request,response) => {
   response.status(200).json(app.locals.teas)
 })
 
+app.get('/api/v1/teas/:id', () => {
+  const id = request.params.id;
+  const pet = app.locals.teas.find(tea => tea.id === id)
+  if (tea) {
+    response.status(200).json({ tea })
+  } else {
+    response.status(404).json({
+    errorMessage: `Something went wrong. Cannot find tea with an id of ${id}.`
+  })
+  }
+})
+
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is steeping on http://localhost:${app.get('port')}.`);
 });
